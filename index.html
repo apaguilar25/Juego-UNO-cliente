@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UNO Master — Multijugador en tiempo real</title>
+    <link rel="stylesheet" href="./styles.css" />
+    </head>
+    <body>
+    <!-- ====== LOBBY ====== -->
+    <section id="lobby" class="screen">
+        <div class="lobby-card">
+        <h1 class="logo">UNO<span>Master</span></h1>
+        <p class="tag">Multijugador en tiempo real · 4 jugadores</p>
+
+        <label for="serverUrl">Servidor WebSocket</label>
+        <input id="serverUrl" type="text" placeholder="ws://localhost:3000" />
+
+        <label for="nickname">Tu nombre</label>
+        <input id="nickname" type="text" maxlength="16" placeholder="Ej: Carlos" />
+
+        <button id="btnJoin" class="btn-primary">Entrar al Lobby</button>
+
+        <div id="lobbyStatus" class="lobby-status hidden">
+            <p>Esperando jugadores…</p>
+            <ul id="lobbyList"></ul>
+            <p class="hint">El juego inicia automáticamente al llegar a 4 jugadores.</p>
+        </div>
+
+        <p id="connStatus" class="conn-status"></p>
+        </div>
+    </section>
+
+    <!-- ====== GAME ====== -->
+    <section id="game" class="screen hidden">
+        <header class="topbar">
+        <div class="topbar-left">
+            <span class="brand">UNO<span>Master</span></span>
+        </div>
+        <div class="topbar-center">
+            <span id="turnInfo" class="turn-info">—</span>
+            <span id="directionInfo" class="dir-info">➡️</span>
+        </div>
+        <div class="topbar-right">
+            <span id="meName" class="me-name"></span>
+        </div>
+        </header>
+
+        <main class="board">
+        <div class="opponents" id="opponents"></div>
+
+        <div class="table">
+            <div class="pile draw-pile" id="drawPile" title="Robar carta">
+            <img src="./assets/card_back.png" alt="Mazo" />
+            <span class="pile-label">Robar</span>
+            </div>
+            <div class="pile discard-pile" id="discardPile">
+            <span class="pile-label">Descarte</span>
+            </div>
+        </div>
+
+        <div id="log" class="log"></div>
+
+        <div class="bottom">
+            <div class="uno-buttons hidden" id="unoButtons">
+            <button id="btnUno" class="btn-uno">¡UNO!</button>
+            <button id="btnCorte" class="btn-corte">¡CORTE!</button>
+            </div>
+            <div class="hand" id="hand"></div>
+        </div>
+        </main>
+    </section>
+
+    <!-- ====== COLOR PICKER ====== -->
+    <div id="colorPicker" class="modal hidden">
+        <div class="modal-card">
+        <h2>Elige un color</h2>
+        <div class="color-grid">
+            <button class="color-btn" data-color="Rojo" style="background:#e63946"></button>
+            <button class="color-btn" data-color="Amarillo" style="background:#f4c430"></button>
+            <button class="color-btn" data-color="Verde" style="background:#2a9d4a"></button>
+            <button class="color-btn" data-color="Azul" style="background:#1d6fb8"></button>
+        </div>
+        <button id="cancelColor" class="btn-ghost">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- ====== POPUP ====== -->
+    <div id="popup" class="modal hidden">
+        <div class="modal-card popup-card">
+        <h2>¡Atención!</h2>
+        <p id="popupMsg"></p>
+        <button id="popupOk" class="btn-primary">Entendido</button>
+        </div>
+    </div>
+
+    <!-- ====== GAME OVER ====== -->
+    <div id="gameOver" class="modal hidden">
+        <div class="modal-card">
+        <h2>Fin del Juego</h2>
+        <p id="gameOverMsg"></p>
+        <button id="btnRestart" class="btn-primary">Volver al lobby</button>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html>
