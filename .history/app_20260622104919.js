@@ -44,7 +44,13 @@
 
     // ---------- Server URL ----------
     const params = new URLSearchParams(location.search);
-    serverInput.value = "https://juego-uno-servidor.onrender.com";
+    const defaultServer =
+        params.get("server") ||
+        localStorage.getItem("uno_server") ||
+        (location.protocol === "https:"
+        ? `wss://${location.host}`
+        : `ws://${location.hostname || "localhost"}:3000`);
+    serverInput.value = defaultServer;
 
     // ---------- Helpers de assets ----------
     const COLOR_MAP = { Rojo: "Red", Amarillo: "Yellow", Verde: "Green", Azul: "Blue" };
